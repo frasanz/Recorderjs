@@ -358,7 +358,9 @@ function play_column(sequencer,column,bufferlist){
         gainNode[i].connect(globals.recordNode);
         globals.recordNode.connect(context.destination);
       }else if(globals.record==2){
+        globals.recorder && globals.recorder.stop();
         createDownloadLink();
+        globals.recorder.clear();
         globals.record=0;
       }else{
 			  gainNode[i].connect(context.destination);
