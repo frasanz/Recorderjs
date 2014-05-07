@@ -14,6 +14,7 @@ globals = (function(){
 	pm.dbltemp=0;
 	pm.loop=0;
   pm.record=0;
+  pm.recording=0;
   pm.recordNode=null;
   pm.recorder=null;
 	return pm;
@@ -332,6 +333,25 @@ function createDownloadLink() {
       });
 }
 
+/* This function start all needed for recording */
+function start_record(){
+  if(globals.recordNode==null)
+    globals.recordNode=context.createGain();
+  if(globals.recorder==null)
+    globals.recorder=new Recorder(globals.recordNode);
+  globals.recorder && globals.recorder.record();
+  $("input[type=button]").attr("disabled", true);
+}
+
+function stop_record(){
+  globals.record=0;
+  globals.increment=0;
+  globals.recorder && globals.recorder.stop();
+  createDownloadLink();
+  globals.recorder.clear();
+  $("input[type=button]").attr("disabled", false);
+}
+
 
 /* This function play a column of a sequencer */
 function play_column(sequencer,column,bufferlist){
@@ -350,18 +370,8 @@ function play_column(sequencer,column,bufferlist){
 			source[i].connect(gainNode[i]);
 			gainNode[i].gain.value = 1.0*volume/100;
       if(globals.record==1){
-        if(globals.recordNode==null)
-          globals.recordNode=context.createGain();
-        if(globals.recorder==null)
-           globals.recorder=new Recorder(globals.recordNode);
-        globals.recorder && globals.recorder.record();
         gainNode[i].connect(globals.recordNode);
         globals.recordNode.connect(context.destination);
-      }else if(globals.record==2){
-        globals.recorder && globals.recorder.stop();
-        createDownloadLink();
-        globals.recorder.clear();
-        globals.record=0;
       }else{
 			  gainNode[i].connect(context.destination);
       }
@@ -400,6 +410,14 @@ function startSequencer(bufferlist) {
 	//console.log("--"+curr);
 	if(globals.increment){
 		globals.autoscroll=1;
+    if(globals.record==1 && globals.colSelected==0 && globals.recording==1){
+      stop_record();
+      globals.recording=0;
+    }
+    if(globals.record==1 && globals.colSelected==0){
+        start_record();
+        globals.recording=1;
+    }
 		play_column(0,curr,bufferlist);
 	  /*play_column(1,curr,bufferlist);
 	  play_column(2,curr,bufferlist);
@@ -441,11 +459,9 @@ function enable_other_buttons(){
 	});
   $('#record').click(function(){
     console.log('record');
+    globals.colSelected=0;
+    globals.increment=1;
     globals.record=1;
-  });
-  $('#recordstop').click(function(){
-    console.log('recordstop');
-    globals.record=2;
   });
 	$('#save').click(function(){
 		console.log('save');
