@@ -1,0 +1,106 @@
+.body{
+}
+td.off{
+	width: 15px;
+	height: 15px;
+	background: #999;
+	font-size: 0px;
+	border-radius: 3px;
+	border: 1px solid #777;
+}
+td.led{
+	width: 12px;
+	height: 15px;
+	background: #300;
+	font-size: 0px;
+	border-radius: 3px;
+	border: 1px solid #300;
+}
+
+td.ledon{
+	width: 12px;
+	height: 15px;
+	background: #900;
+	font-size: 0px;
+	border-radius: 3px;
+	border: 1px solid #900;
+}
+
+td.instrument{
+	width: 20px;
+	height: 15px;
+	background: #779;
+	font-size: 12px;
+	border-radius 3px;
+	border: 1px solid #668;
+}
+td.mute{
+	width: 12px;
+	height: 15px;
+	background: #696;
+	font-size: 12px;
+	border-radius 3px;
+	border: 1px solid #696;
+}
+td.muteon{
+	background: #966;
+	border: 1px solid #966;
+}
+td.copyhere{
+	width: 12px;
+	height: 15px;
+	background: #669;
+	font-size: 12px;
+	border-radius 3px;
+	border: 1px solid #669;
+}
+
+td.copyfrom{
+	width: 12px;
+	height: 15px;
+	background: #66d;
+	font-size: 12px;
+	border-radius 3px;
+	border: 1px solid #66f;
+}
+td.td_head{
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	text-align: center;
+	font-size: 8px;
+}
+td.td_headon{
+	background: #aaa;
+}
+
+table{
+	width: 900px;
+}
+
+.div_sequencer{
+	width: 1000px;
+	overflow-x: hidden;
+}
+#div_0{
+	overflow-x: scroll;
+}
+
+#seq0{
+}
+
+#seq1{
+	display: inline;
+}
+#seq2{
+	display: none;
+}
+#seq3{
+	display: none;
+}
+#seq4{
+	display: none;
+}
+
+
+
